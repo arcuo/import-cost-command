@@ -2,7 +2,7 @@
   "name": "import-cost-command",
   "displayName": "import-cost-command",
   "description": "Commands to calculate import costs in Typescript/Javascript projects",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.75.0"
   },
