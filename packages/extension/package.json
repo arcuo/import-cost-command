@@ -27,7 +27,7 @@
     "watch": "tsup --watch",
     "lint": "eslint src --ext ts",
     "pretest": "pnpm run compile && pnpm run lint",
-    "test": "node ./out/test/runTest.js"
+    "vscode-test": "pnpm pretest && node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^8.0.1",
