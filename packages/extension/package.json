@@ -1,0 +1,48 @@
+{
+  "name": "import-cost-command",
+  "displayName": "import-cost-command",
+  "description": "Commands to calculate import costs in Typescript/Javascript projects",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:import-cost-command.getLineImportCost"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "import-cost-command.getLineImportCost",
+        "title": "Get import cost for current import line"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "build": "tsup --silent",
+    "watch": "tsup --watch",
+    "lint": "eslint src --ext ts",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.75.0",
+    "@vscode/test-electron": "^2.2.2",
+    "eslint": "^8.33.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.1.0",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "import-cost": "^3.2.0",
+    "vscode-uri": "^3.0.7"
+  }
+}

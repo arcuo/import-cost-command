@@ -25,7 +25,6 @@ export function log(message: string, type: LogType = LogType.Info) {
 }
 
 function getString(message: any): string {
-
   switch (typeof message) {
     case "number":
       return message.toString();
@@ -36,12 +35,12 @@ function getString(message: any): string {
     case "object":
       return JSON.stringify(message);
     default:
-      return ""
+      return "";
   }
 }
 
 function mapStrings(message: any, args: any[]) {
-  return `${message} ${args.map(getString).join(' ')}`;
+  return `${message} ${args.map(getString).join(" ")}`;
 }
 
 export function logInfo(message: any, ...args: any[]) {

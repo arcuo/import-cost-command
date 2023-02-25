@@ -1,9 +1,7 @@
-# Change Log
+# import-cost-command
 
-All notable changes to the "import-cost-command" extension will be documented in this file.
+## 0.0.2
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### Patch Changes
 
-## [Unreleased]
-
-- Initial release
+- Added tsup for bundling

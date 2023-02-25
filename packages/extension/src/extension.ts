@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import { getLineImportCost } from "./getLineImportCost";
-import { initOutputChannel } from './logging';
+import { initOutputChannel } from "./logging";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed

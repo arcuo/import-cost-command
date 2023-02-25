@@ -1,50 +1,25 @@
 {
   "name": "import-cost-command",
-  "displayName": "import-cost-command",
-  "description": "Commands to calculate import costs in Typescript/Javascript projects",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.75.0"
-  },
-  "categories": [
-    "Other"
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "activationEvents": [
-    "onCommand:import-cost-command.getLineImportCost"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "import-cost-command.getLineImportCost",
-        "title": "Get import cost for current import line"
-      }
-    ]
-  },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
-    "compile": "tsup",
-    "watch": "tsup --watch",
-    "pretest": "pnpm run compile && pnpm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "@types/glob": "^8.0.1",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@types/vscode": "^1.75.0",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "@vscode/test-electron": "^2.2.2",
-    "eslint": "^8.33.0",
-    "glob": "^8.1.0",
-    "mocha": "^10.1.0",
-    "tsup": "^6.6.3",
-    "typescript": "^4.9.4",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "latest",
+    "turbo": "latest",
     "@changesets/cli": "^2.26.0"
   },
-  "dependencies": {
-    "import-cost": "^3.2.0"
-  }
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {}
 }
