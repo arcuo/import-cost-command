@@ -7,11 +7,21 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup index.ts --format cjs,esm --dts",
-    "lint": "tsc"
+    "build": "tsup ./src/index.ts --format cjs,esm --dts",
+    "lint": "tsc",
+    "test": "vitest run",
+    "dev": "vitest"
   },
   "devDependencies": {
+    "@types/babel__traverse": "^7.18.3",
     "tsup": "^6.6.3",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.29.1"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.21.2",
+    "@babel/traverse": "^7.21.2",
+    "@babel/types": "^7.21.2",
+    "esbuild": "^0.17.10"
   }
 }
