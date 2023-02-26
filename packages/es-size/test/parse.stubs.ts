@@ -11,6 +11,7 @@ export const pkgName = "testPackage";
 
 export const validImportStubs: Stub[] = [
   {
+    testDescription: "One named import",
     input: `import { parse } from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -23,9 +24,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import {parse} from '${pkgName}';\nconsole.log({parse});`,
-    testDescription: "One named import",
   },
   {
+    testDescription: "Multiple named imports",
     input: `import { parse, getPackageInfoFromString } from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -42,9 +43,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import {getPackageInfoFromString, parse} from '${pkgName}';\nconsole.log({getPackageInfoFromString, parse});`,
-    testDescription: "Multiple named imports",
   },
   {
+    testDescription: "Namespace import",
     input: `import * as ${pkgName} from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -57,9 +58,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import * as ${pkgName} from '${pkgName}';\nconsole.log(${pkgName});`,
-    testDescription: "Namespace import",
   },
   {
+    testDescription: "Namespace import with alias",
     input: `import * as ${pkgName}2 from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -72,9 +73,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import * as ${pkgName}2 from '${pkgName}';\nconsole.log(${pkgName}2);`,
-    testDescription: "Namespace import with alias",
   },
   {
+    testDescription: "Default import",
     input: `import ${pkgName} from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -87,9 +88,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import ${pkgName} from '${pkgName}';\nconsole.log(${pkgName});`,
-    testDescription: "Default import",
   },
   {
+    testDescription: "Default import with alias",
     input: `import ${pkgName}2 from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -102,9 +103,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import ${pkgName}2 from '${pkgName}';\nconsole.log(${pkgName}2);`,
-    testDescription: "Default import with alias",
   },
   {
+    testDescription: "Default and named imports",
     input: `import ${pkgName}, { parse } from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -121,9 +122,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import ${pkgName}, {parse} from '${pkgName}';\nconsole.log(${pkgName}, {parse});`,
-    testDescription: "Default and named imports",
   },
   {
+    testDescription: "Default and namespace imports",
     input: `import ${pkgName}, * as ${pkgName}Rest from '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -140,9 +141,9 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import ${pkgName}, * as ${pkgName}Rest from '${pkgName}';\nconsole.log(${pkgName}, ${pkgName}Rest);`,
-    testDescription: "Default and namespace imports",
   },
   {
+    testDescription: "No imports",
     input: `import '${pkgName}'`,
     importInfo: {
       package: pkgName,
@@ -150,7 +151,6 @@ export const validImportStubs: Stub[] = [
       type: ImportType.IMPORT,
     },
     importString: `import * as tmp from '${pkgName}';\nconsole.log(tmp);`,
-    testDescription: "No imports",
   },
 
   {

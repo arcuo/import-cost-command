@@ -138,8 +138,6 @@ export function getPackageName(node: types.CallExpression) {
   }
 
   if (!packageName) {
-    console.log('node:', node);
-    console.log("firstArgument:", firstArgument);
     throw new Error("Unexpected argument type");
   }
   return packageName;
