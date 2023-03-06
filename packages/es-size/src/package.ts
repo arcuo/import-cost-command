@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { dirname, join, parse, resolve } from "path";
 
-export class PackageVersionError extends Error {
+export class PackageError extends Error {
   type = "PackageVersionError";
 }
 
@@ -29,14 +29,14 @@ export function getPackageVersion(
  * @param _nodeModulesPath The node_modules folder to search in. If not provided, will be found from currentFilePath
  */
 export function getPackageFolder(packageName: string, currentFilePath: string, _nodeModulesPath?: string) {
-  const nodeModulesPath = _nodeModulesPath ?? getNodeModulesFolderPath(currentFilePath);
+  const nodeModulesPath = _nodeModulesPath ?? getPackageRoot(currentFilePath) + "/node_modules";
   let currentDir = nodeModulesPath;
 
   packageName.split("/").forEach((packagePart) => {
     if (existsSync(join(currentDir, packagePart))) {
       currentDir = join(currentDir, packagePart);
     } else {
-      throw new PackageVersionError(
+      throw new PackageError(
         `Could not find package ${packageName} in node_modules`
       );
     }
@@ -46,24 +46,24 @@ export function getPackageFolder(packageName: string, currentFilePath: string, _
 }
 
 /** 
- * From a file inside a node project, find the node_modules folder for the project by iterating outwards from the file. 
+ * From a file inside a node project, find the package root by iterating outwards from the file. 
  * @param filePath The file path to start searching from
  * @param maxIterations The maximum number of iterations to search for node_modules folder
 */
-export function getNodeModulesFolderPath(filePath: string, maxIterations = 10) {
+export function getPackageRoot(filePath: string, maxIterations = 10) {
   let currentDir = dirname(filePath);
   const { root } = parse(currentDir);
   let iter = 1;
 
   while (currentDir !== root && iter < maxIterations) {
-    if (existsSync(join(currentDir, "node_modules"))) {
+    if (existsSync(join(currentDir, "package.json"))) {
       const path = parse(currentDir);
-      return join(path.dir, path.base, "node_modules");
+      return join(path.dir, path.base);
     } else {
       currentDir = resolve(currentDir, "..");
       iter++;
     }
   }
 
-  throw new PackageVersionError("Could not find node_modules folder");
+  throw new PackageError("Could not find node_modules folder");
 }

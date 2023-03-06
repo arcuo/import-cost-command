@@ -1,37 +1,37 @@
 import { describe, expect, test } from "vitest";
 import {
-  getNodeModulesFolderPath,
+  getPackageRoot,
   getPackageFolder,
   getPackageVersion,
-  PackageVersionError,
-} from "../src/packageVersion";
+  PackageError,
+} from "../src/package";
 
 describe("Test packageVersion functions", () => {
-  describe("Test getNodeModulesFolderPath", () => {
-    test("Get node_modules from this current file", () => {
-      const dir = getNodeModulesFolderPath(__filename);
+  describe("Test getPackageRoot", () => {
+    test("Get package root from this current file", () => {
+      const dir = getPackageRoot(__filename);
       if (dir) {
-        const endPath = dir.split("/").slice(-4).join("/");
+        const endPath = dir.split("/").slice(-3).join("/");
         expect(endPath).toBe(
-          "import-cost-command/packages/es-size/node_modules"
+          "import-cost-command/packages/es-size"
         );
       }
     });
 
-    test("Get node_modules in same folder as tested file", () => {
+    test("Get root if current file is in the root", () => {
       const ezSizePath = __dirname + "/../package.json";
-      const dir = getNodeModulesFolderPath(ezSizePath);
+      const dir = getPackageRoot(ezSizePath);
       if (dir) {
-        const endPath = dir.split("/").slice(-4).join("/");
+        const endPath = dir.split("/").slice(-3).join("/");
         expect(endPath).toBe(
-          "import-cost-command/packages/es-size/node_modules"
+          "import-cost-command/packages/es-size"
         );
       }
     });
 
     test("Exceeding max iterations should throw PackageVersionError", () => {
-      expect(() => getNodeModulesFolderPath(__filename, 0)).toThrowError(
-        PackageVersionError
+      expect(() => getPackageRoot(__filename, 0)).toThrowError(
+        PackageError
       );
     });
   });
@@ -48,7 +48,7 @@ describe("Test packageVersion functions", () => {
     test("Throw error if package cannot be found", () => {
       expect(() =>
         getPackageFolder("non-existent-package", __filename)
-      ).toThrowError(PackageVersionError);
+      ).toThrowError(PackageError);
     });
   });
 
