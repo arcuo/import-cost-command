@@ -5,20 +5,31 @@ export class PackageVersionError extends Error {
   type = "PackageVersionError";
 }
 
-/** Find package in node_modules and output version */
+/** 
+ * Find package in node_modules and output version
+ * @param packageName The name of the package to find
+ * @param currentFilePath The file path to start searching from
+ * @param _packageFolder The package folder to search in. If not provided, will be found from currentFilePath
+ */
 export function getPackageVersion(
   packageName: string,
-  currentFilePath: string
+  currentFilePath: string,
+  _packageFolder?: string
 ) {
-  const packageFolder = getPackageFolder(packageName, currentFilePath);
+  const packageFolder = _packageFolder ?? getPackageFolder(packageName, currentFilePath);
   const packageJsonPath = join(packageFolder, "package.json");
   const packageJson = require(packageJsonPath);
   return packageJson.version;
 }
 
-/** Get the package folder from a file inside the project */
-export function getPackageFolder(packageName: string, currentFilePath: string) {
-  const nodeModulesPath = getNodeModulesFolderPath(currentFilePath);
+/** 
+ * Get the package folder from a file inside the project
+ * @param packageName The name of the package to find
+ * @param currentFilePath The file path to start searching from
+ * @param _nodeModulesPath The node_modules folder to search in. If not provided, will be found from currentFilePath
+ */
+export function getPackageFolder(packageName: string, currentFilePath: string, _nodeModulesPath?: string) {
+  const nodeModulesPath = _nodeModulesPath ?? getNodeModulesFolderPath(currentFilePath);
   let currentDir = nodeModulesPath;
 
   packageName.split("/").forEach((packagePart) => {
@@ -34,7 +45,11 @@ export function getPackageFolder(packageName: string, currentFilePath: string) {
   return currentDir;
 }
 
-/** From a file inside a node project, find the node_modules folder for the project by iterating outwards from the file. */
+/** 
+ * From a file inside a node project, find the node_modules folder for the project by iterating outwards from the file. 
+ * @param filePath The file path to start searching from
+ * @param maxIterations The maximum number of iterations to search for node_modules folder
+*/
 export function getNodeModulesFolderPath(filePath: string, maxIterations = 10) {
   let currentDir = dirname(filePath);
   const { root } = parse(currentDir);
