@@ -11,11 +11,6 @@ export const Language = {
 
 export type Language = (typeof Language)[keyof typeof Language];
 
-export type PackageInfo = {
-  name: string;
-  string: string;
-};
-
 const PARSE_JS_PLUGINS = ["flow"] as const;
 const PARSE_TS_PLUGINS = ["typescript"] as const;
 
@@ -82,14 +77,14 @@ export function getImportsInfo(input: string, language: Language) {
 
       if ("name" in node.callee && node.callee.name === "require") {
         const importInfo: ImportInfo = {
-          package: getPackageName(node),
+          package: getPackageNameFromCallExpression(node),
           type: ImportType.REQUIRE,
         };
 
         imports.push(importInfo);
       } else if (node.callee.type === "Import") {
         const importInfo: ImportInfo = {
-          package: getPackageName(node),
+          package: getPackageNameFromCallExpression(node),
           type: ImportType.DYNAMIC_IMPORT,
         };
 
@@ -127,7 +122,7 @@ function getSpecifierInfo(specifier: Specifier): SpecifierInfo | undefined {
   }
 }
 
-export function getPackageName(node: types.CallExpression) {
+export function getPackageNameFromCallExpression(node: types.CallExpression) {
   let packageName: string | undefined;
   const firstArgument = node.arguments[0];
 
