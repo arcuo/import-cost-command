@@ -14,13 +14,12 @@
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.0",
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
-    "turbo": "latest",
-    "@changesets/cli": "^2.26.0"
+    "turbo": "^1.8.3"
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "dependencies": {}
+  }
 }
