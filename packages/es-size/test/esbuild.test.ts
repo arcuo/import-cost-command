@@ -1,4 +1,4 @@
-import { describe, test } from "vitest";
+import { describe, expect, test } from "vitest";
 import { createImportBuild } from "../src/esbuild";
 import { getImportsInfo, Language } from "../src/importInfo";
 
@@ -10,7 +10,12 @@ describe("esbuild", () => {
     const results = await createImportBuild(
       importInfo!,
       __filename,
-      Language.TS
+      Language.TS,
     );
+
+    expect(results.errors).toEqual([]);
+    expect(results.warnings).toEqual([]);
+    expect(results.metafile).toBeDefined();
+    expect(results.outputFiles).toBeDefined();
   });
 });
