@@ -32,16 +32,16 @@ export async function createImportBuild<
   const importFileString = compileImportString(importInfo);
   const packageRoot = options?.packageRoot ?? getPackageRoot(currentFilePath);
 
-  const defaultOptions = {
+  const defaultOptions: esbuild.BuildOptions = {
     stdin: {
       contents: importFileString,
-      sourcefile: "importing_file.js",
+      sourcefile: `import_${encodeURIComponent(importInfo.package)}.js`,
       loader: language === Language.TS ? "ts" : "js",
       resolveDir: packageRoot,
     },
+    outfile: "out.js",
     bundle: true,
     write: false,
-    outdir: "out",
     treeShaking: true,
     minify: true,
     metafile: true,
