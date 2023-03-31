@@ -22,8 +22,6 @@ async function getImportSize(
     options.language
   );
 
-  console.log("buildResult:", buildResult);
-
   if (buildResult.errors.length) {
     throw new Error(buildResult.errors.join(", "));
   }

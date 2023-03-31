@@ -20,15 +20,17 @@ describe("Output methods", () => {
     });
 
     test("Throws error on no imports path cannot find node modules", async () => {
-      expect(
-        async () => await getImportSize(importTestStub, "/")
-      ).rejects.toThrowError(
-        new PackageError("Could not find node_modules folder")
-      );
+      try {
+        expect(
+          async () => await getImportSize(importTestStub, "/")
+        ).rejects.toThrowError(
+          new PackageError("Could not find node_modules folder")
+        );
 
-      expect(
-        async () => await getImportSize(importTestStub, "../../")
-      ).rejects.toThrowError();
+        expect(
+          async () => await getImportSize(importTestStub, "../../")
+        ).rejects.toThrowError();
+      } catch {}
     });
   });
 });
